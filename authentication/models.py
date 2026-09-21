@@ -1,23 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 class UserProfile(models.Model):
-    # تعريف الأدوار المتاحة في النظام بناءً على متطلبات الـ RBAC
-    ROLE_CHOICES = (
-        ('owner', 'Owner (المالك)'),
-        ('employee', 'Employee (الموظف)'),
-    )
-
-    # ربط الجدول بجدول المستخدمين الأساسي في دجانجو علاقة One-to-One
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    """
+    User profile to define roles and permissions (Admin, Manager, Standard User, Client)
+    """
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('manager', 'Manager'),
+        ('staff', 'Standard User'),
+        ('client', 'Client'),
+    ]
     
-    # حقل الدور لتحديد صلاحيات المستخدم
-    role = models.CharField(max_lenth=20, choices=ROLE_CHOICES, default='employee')
-    
-    # حقول إضافية اختيارية مفيدة للموظف والمالك (مثل رقم الهاتق أو الفرع)
-    phone = models.CharField(max_length=15, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', verbose_name="User")
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='staff', verbose_name="Role")
+    phone = models.CharField(max_length=50, blank=True, null=True, verbose_name="Phone Number")
 
     def __str__(self):
-        return f"{self.user.username} - {self.role}"
+        return f"{self.user.username} - {self.get_role_display()}"
 
-# Create your models here.
+
+# ==========================================
+
+
+
+
