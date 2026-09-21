@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة تحكم ذكاء المخزون | Inventory AI Dashboard</title>
+    <!-- ربط ملف الـ CSS الخارجي باستخدام وسوم دجانجو -->
+    <link rel="stylesheet" href="{% static 'ai_agent/css/style.css' %}">
+</head>
+<body>
+
+<div class="chat-container">
+    <h2>المساعد الذكي لإدارة المخزون والمبيعات</h2>
+    
+    <!-- صندوق عرض الرسائل -->
+    <div id="chatBox" class="chat-box">
+        <div class="message ai-message" style="direction: rtl;">أهلاً بكِ! أنا مساعد الذكاء الاصطناعي، جاهز لفحص حالة المخزون أو مساعدتك في تتبع المبيعات.</div>
+    </div>
+    
+    <!-- منطقة إدخال النص وزر الإرسال -->
+    <div class="input-group">
+        <input type="text" id="userInput" placeholder="اكتب طلبك هنا (مثلاً: افحص المنتجات التي قاربت على النفاد)..." autocomplete="off">
+        <button onclick="sendMessage()">إرسال</button>
+    </div>
+</div>
+
+<!-- حقل خفي لتمرير حماية دجانجو الأمنية -->
+<input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+
+<!-- ربط ملف الـ JavaScript الخارجي -->
+<script src="{% static 'ai_agent/js/chat_script.js' %}"></script>
+
+</body>
+</html>
