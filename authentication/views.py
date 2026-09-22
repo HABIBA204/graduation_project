@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegistrationForm
-
+from authentication.decorators import role_required
+from django.contrib.auth import authenticate,login
+from django.contrib.auth.forms import AuthenticationForm
 def register_view(request):
     """
     منطق معالجة تسجيل مستخدم جديد في النظام
@@ -27,5 +29,33 @@ def register_view(request):
     
     # تمرير الفورم لملف الـ HTML لعرضه للمستخدم
     return render(request, 'authentication/register.html', {'form': form})
+
+
+
+def login_view(request):
+    """
+    Handle user login logic: authenticate credentials and establish a session.
+    """
+    if request.method == 'POST':
+        # Bind the POST data to Django's built-in AuthenticationForm
+        form = AuthenticationForm(request, data=request.POST)
+        
+        if form.is_valid():
+            # Extract authenticated user object from the cleaned form
+            user = form.get_user()
+            
+            # Establish the user session
+            login(request, user)
+            
+            messages.success(request, f"Welcome back, {user.username}!")
+            
+            # Redirect to the main dashboard or home page after successful login
+            return redirect('home')  # ( تأكدي من ربط مسار الـ home عندك )
+        else:
+            messages.error(request, "Invalid username or password. Please try again.")
+    else:
+        # Display an empty login form for GET requests
+        form = AuthenticationForm()
+        return render(request, 'authentication/login.html', {'form': form})
 
 # Create your views here.

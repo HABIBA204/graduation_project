@@ -1,0 +1,96 @@
+/* إعدادات عامة وتنسيق الخطوط */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    direction: rtl;
+}
+
+/* تصميم البطاقة الحاضنة للفورم */
+.login-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-card h2 {
+    margin-bottom: 24px;
+    color: #2c3e50;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* تنسيق الحقول التي تولدها دجانجو form.as_p */
+.login-card form p {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-card label {
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"],
+.login-card input[type="email"] {
+    padding: 12px;
+    border: 1px solid #dcdde1;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    outline: none;
+    width: 100%;
+}
+
+/* تأثير التحديد عند الوقوف داخل الحقل */
+.login-card input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
+}
+
+/* زر الدخول */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #2980b9;
+}
+
+/* صندوق الرسائل والتنبيهات */
+.messages {
+    margin-bottom: 20px;
+    padding: 12px;
+    background-color: #fadbd8;
+    color: #c0392b;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #f5b7b1;
+}
