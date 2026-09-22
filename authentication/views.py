@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegistrationForm
-from authentication.decorators import role_required
+
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout
+
+
+
 def register_view(request):
+    
     """
     منطق معالجة تسجيل مستخدم جديد في النظام
     """
@@ -58,4 +63,18 @@ def login_view(request):
         form = AuthenticationForm()
         return render(request, 'authentication/login.html', {'form': form})
 
-# Create your views here.
+
+
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+    """
+    منطق تسجيل الخروج: إنهاء جلسة المستخدم الحالية وتوجيهه لصفحة تسجيل الدخول
+    """
+    logout(request) # دالة دجانجو لتدمير الـ Session الحالية
+    return redirect('login') # التوجيه الآمن لصفحة تسجيل الدخول
+
+
+
+

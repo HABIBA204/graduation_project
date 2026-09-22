@@ -18,7 +18,7 @@ async function sendMessage() {
 
     try {
         // ب. إرسال الطلب للخلفية عبر Fetch API
-        const response = await fetch('', {
+        const response = await fetch('/ai/chat/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

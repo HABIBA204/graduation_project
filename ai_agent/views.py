@@ -1,8 +1,10 @@
 # ai_agent/views.py
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .services import run_inventory_agent
+from authentication.decorators import role_required
+from stock.models import PurchaseOrder
 
 @login_required  # ضمان الأمان وأن المستخدم مسجل دخوله (RBAC)
 def agent_chat_view(request):
@@ -25,4 +27,14 @@ def agent_chat_view(request):
 
     # لو الطلب GET، بنعرض صفحة الدردشة أو لوحة التحكم الخاصة بالـ Agent
     return render(request, "ai_agent/chat_dashboard.html")
+
+
+@role_required(['manager', 'admin'])
+def approve_purchase_order(request, order_id):
+    # هنا الكود اللي بيحول حالة أمر الشراء من Pending لـ Confirmed أو مرسل للمورد
+    order = PurchaseOrder.objects.get(id=order_id)
+    order.status = 'Approved'
+    order.save()
+    return redirect('purchase_orders_list')
+
 # Create your views here.
